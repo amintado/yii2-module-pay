@@ -17,4 +17,13 @@ class DefaultController extends Controller
     {
         return 'start';
     }
+
+    public function actionFreePay(){
+
+    }
+
+
+    public function actionConfirm(){
+
+    }
 }

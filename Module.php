@@ -6,7 +6,7 @@
  * Time: 5:58 PM
  */
 
-namespace vendor\amintado\pay;
+namespace amintado\pay;
 
 
 class Module extends \yii\base\Module
