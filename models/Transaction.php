@@ -23,6 +23,7 @@ use yii\behaviors\BlameableBehavior;
  * @property integer $uid
  * @property string $date
  * @property string $price
+ * @property string $inventory
  * @property string $description
  * @property integer $invoice
  * @property string $UUID
@@ -72,7 +73,7 @@ class Transaction extends \yii\db\ActiveRecord
         return [
             [['uid', 'invoice', 'lock', 'created_by', 'updated_by', 'deleted_by', 'restored_by'], 'integer'],
             [['date', 'created_at', 'updated_at'], 'safe'],
-            [['price'], 'number'],
+            [['price','inventory'], 'number'],
             [['description'], 'string', 'max' => 255],
             [['UUID'], 'string', 'max' => 32],
             [['lock'], 'default', 'value' => '0'],
@@ -114,6 +115,7 @@ class Transaction extends \yii\db\ActiveRecord
             'UUID' => Yii::t('atpay', 'Uuid'),
             'lock' => Yii::t('atpay', 'Lock'),
             'restored_by' => Yii::t('atpay', 'Restored By'),
+            'inventory' => Yii::t('atpay', 'Inventory'),
         ];
     }
     

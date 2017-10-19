@@ -3,11 +3,13 @@
 use amintado\pay\assets\PayAsset;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model amintado\pay\models\Transaction */
 /* @var $form yii\widgets\ActiveForm */
 $asset=PayAsset::register($this);
+
 ?>
 
 <div class="transaction-form">
@@ -50,7 +52,8 @@ $asset=PayAsset::register($this);
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'placeholder' => 'Price']) ?>
+
+                            <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'placeholder' => Yii::t('atpay', 'Deposits'),'rel'=>'amount','value'=>10000,'type'=>'number'])->label(Yii::t('atpay', 'Deposits')) ?>
                         </div>
                     </div>
                 </div>
@@ -68,15 +71,15 @@ $asset=PayAsset::register($this);
                         </tr>
                         <tr>
                             <td>مبلغ واریزی</td>
-                            <td class="text-left">10.000</td>
+                            <td class="text-left" id="pay-price">10.000</td>
                         </tr>
                         <tr>
                             <td>هزینه ی واریز</td>
-                            <td class="text-left">0</td>
+                            <td class="text-left" id="cost">0</td>
                         </tr>
                         <tr class="active">
                             <td>مجموع</td>
-                            <td class="text-left">10.000</td>
+                            <td class="text-left" id="sum">10.000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -90,13 +93,10 @@ $asset=PayAsset::register($this);
 
 
     <div class="form-group">
-        <?php if (Yii::$app->controller->action->id != 'save-as-new'): ?>
-            <?= Html::submitButton($model->isNewRecord ? Yii::t('atpay', 'Create') : Yii::t('atpay', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?php endif; ?>
-        <?php if (Yii::$app->controller->action->id != 'create'): ?>
-            <?= Html::submitButton(Yii::t('atpay', 'Save As New'), ['class' => 'btn btn-info', 'value' => '1', 'name' => '_asnew']) ?>
-        <?php endif; ?>
-        <?= Html::a(Yii::t('app', 'Cancel'), Yii::$app->request->referrer, ['class' => 'btn btn-danger']) ?>
+
+            <?= Html::submitButton( Yii::t('atpay', 'Pay') , ['class' =>  'btn btn-success']) ?>
+
+        <?= Html::a(Yii::t('atpay', 'Cancel'), Yii::$app->request->referrer, ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

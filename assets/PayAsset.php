@@ -13,13 +13,19 @@ use yii\web\AssetBundle;
 
 class PayAsset extends AssetBundle
 {
+
     public $sourcePath = '@vendor/amintado/yii2-module-pay/assets';
     public $js =
         [
-
+            'js/pay-main.js',
+            'js/accounting.js'
         ];
     public $css =
         [
             'css/pay-style.css'
         ];
+    public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
 }
