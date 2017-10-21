@@ -17,6 +17,7 @@ use yii\web\Controller;
 use Yii;
 use yii\web\UploadedFile;
 use amintado\pay\classes\Atpayfunctions;
+
 class SettingsController extends Controller
 {
     public function behaviors()
@@ -35,8 +36,44 @@ class SettingsController extends Controller
                             [
                                 'allow' => true,
                                 'actions' => ['index'],
-                                'roles' => ['@']
+                                'roles' => ['PaySettingsIndex']
                             ],
+                            [
+                                'allow' => true,
+                                'actions' => ['view'],
+                                'roles' => ['PaySettingsView']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['create'],
+                                'roles' => ['PaySettingsCreate']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['update'],
+                                'roles' => ['PaySettingsUpdate']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['delete'],
+                                'roles' => ['PaySettingsDelete']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['pdf'],
+                                'roles' => ['PaySettingsPdf']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['help'],
+                                'roles' => ['PaySettingsHelp']
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['confirm'],
+                                'roles' => ['PaySettingsConfirm']
+                            ],
+
                             [
                                 'allow' => false
                             ]
@@ -46,8 +83,7 @@ class SettingsController extends Controller
         ];
     }
 
-    public $UploadDirectory='/atpayupload/';
-
+    public $UploadDirectory = '/atpayupload/';
 
 
     public function actionIndex()
@@ -62,39 +98,39 @@ class SettingsController extends Controller
                         $upload = UploadedFile::getInstance($model, 'factor_logo');
                         //<check file uploaded>
                         {
-                            if (!empty($upload)){
+                            if (!empty($upload)) {
                                 //<check old logo is exist or Not>
                                 {
-                                    $oldFile=Atpayfunctions::Option('logofileName');
-                                    if (!empty($oldFile)){
-                                        unlink(realpath(Yii::getAlias(Yii::$app->controller->module->uploadFolder.'/'.$oldFile)));
+                                    $oldFile = Atpayfunctions::Option('logofileName');
+                                    if (!empty($oldFile)) {
+                                        unlink(realpath(Yii::getAlias(Yii::$app->controller->module->uploadFolder . '/' . $oldFile)));
                                     }
                                 }
                                 //</check old logo is exist or Not>
 
                                 //<save new logo>
                                 {
-                                    $targetFolder=realpath(Yii::getAlias(Yii::$app->controller->module->uploadFolder));
+                                    $targetFolder = realpath(Yii::getAlias(Yii::$app->controller->module->uploadFolder));
                                     //<Check upload folder is exist or not>
                                     {
 
-                                        if (empty($targetFolder)){
-                                            mkdir(Yii::getAlias(Yii::$app->controller->module->uploadFolder),0777,true);
+                                        if (empty($targetFolder)) {
+                                            mkdir(Yii::getAlias(Yii::$app->controller->module->uploadFolder), 0777, true);
                                         }
                                     }
                                     //</Check upload folder is exist or not>
                                     $upload->saveAs
                                     (
-                                        Yii::getAlias(Yii::$app->controller->module->uploadFolder.$upload->name)
+                                        Yii::getAlias(Yii::$app->controller->module->uploadFolder . $upload->name)
                                     );
-                                    Atpayfunctions::Option('logofileName',($upload->name));
+                                    Atpayfunctions::Option('logofileName', ($upload->name));
                                 }
                                 //</save new logo>
 
                             }
                         }
                         //</check file uploaded>
-                    break;
+                        break;
                     default :
 
                         Atpayfunctions::Option($attribute, $model->$attribute);
@@ -103,9 +139,9 @@ class SettingsController extends Controller
             }
 
         }
-        if (!empty($_SERVER["HTTP_REFERER"])){
+        if (!empty($_SERVER["HTTP_REFERER"])) {
             return $this->redirect($_SERVER["HTTP_REFERER"]);
-        }else{
+        } else {
             return $this->redirect(['/']);
         }
     }
