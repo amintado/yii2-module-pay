@@ -27,7 +27,7 @@
         "airani/yii2-adminlte-rtl": "~1.0"
     },
     "require-dev": {
-        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-grid": "@dev"
     },
     "autoload": {
         "psr-4": {
