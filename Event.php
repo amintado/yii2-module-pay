@@ -13,4 +13,9 @@ class Event implements EventInterface {
     {
         return null;// TODO: Implement ErrorPay() method.
     }
+
+    public static function AfterRemoval($model)
+    {
+        return null;// TODO: Implement AfterRemoval() method.
+    }
 }

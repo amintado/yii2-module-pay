@@ -19,5 +19,12 @@ interface EventInterface{
      */
     public static function ErrorPay($model);
 
+    /**
+     * this function runs after remove price from user account
+     * @param $model Transaction
+     * @return mixed
+     *
+     */
+    public static function AfterRemoval($model);
 
 }

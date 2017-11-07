@@ -26,7 +26,7 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $uploadFolder='@frontend/uploads/atpayupload/';
-
+    public $eventClass='amintado\pay\Event';
     public $UploadFolderURL='';
     public function init()
     {

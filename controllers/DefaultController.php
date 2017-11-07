@@ -104,7 +104,9 @@ class DefaultController extends Controller
                 $moduleID = Yii::$app->controller->module->id;
 
                 $redirectUrl = urlencode(Yii::$app->urlManager->createAbsoluteUrl(["$moduleID/default/verify"]));
-
+                if (empty(Atpayfunctions::Option('payIR_API'))){
+                    Atpayfunctions::Option('payIR_API','test');
+                }
                 $result = $pay->send(Atpayfunctions::Option('payIR_API'), $price, $redirectUrl);
             }
         } else {
@@ -181,6 +183,7 @@ class DefaultController extends Controller
             //---------------- update inventory in transaction table -------------------
             $transaction->inventory = intval($user->balance);
             $transaction->save();
+            Yii::$app->controller->module->eventClass::afterPay($transaction);
         }
         unset($invoice);
         unset($user);
